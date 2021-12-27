@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% block content %}
+   
+
+        
+        <ul>
+            {% recursetree categories %}
+                <ul>
+                    {{ node.name }}
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+                    </ul>
+            {% endrecursetree %}
+        </ul>
+
+        {% comment %} <a href="demo-blog-categories.html" class="more-link">View more<i class="icon-line-arrow-right"></i></a> {% endcomment %}
+  
+
+{% endblock content %}

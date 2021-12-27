@@ -1,0 +1,119 @@
+{% load static %}
+
+<div class="row border-between">
+
+    <!-- Left Side of Based On Your Reading History
+    ============================================= -->
+    <div class="col-lg-8">
+        <h3 class="font-secondary fw-medium">Based On Your Reading History</h3>
+
+        <div class="row col-mb-50">
+            {% for article in history_articles %}
+            <article class="col-12">
+                <div class="row">
+                    <div class="col-md-6 mb-0">
+                        <a href={{article.get_absolute_url}} class="entry-image">
+                            <img src={{article.thumbnail.url}} alt={{article.title}}>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="entry-title mt-lg-0 mt-3">
+                            <div class="entry-categories d-flex">
+                                {% for category in article.categories.all %}
+                                    <a href={{category.get_absolute_url}} class="mx-2">{{category.name}}</a>
+                                {% endfor %}
+                                
+                            </div>
+                            <h3><a href={{article.get_absolute_url}} class="color-underline stretched-link">{{article.title}}</a></h3>
+                        </div>
+                        <div class="entry-meta">
+                            <ul>
+                                <li><a href="#">{{article.posted_at}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Right Side of Based On Your Reading History - Sticky
+    ============================================= -->
+    <div class="col-lg-4 mt-5 mt-lg-0 position-sticky h-100" style="top: 234px;">
+        <h3 class="font-secondary fw-medium">This Week</h3>
+
+        <ul class="week-posts posts-sm row col-mb-30">
+            <li class="entry col-12">
+                <div class="grid-inner">
+                    <div class="entry-title">
+                        <h4><a href="demo-blog-single.html" class="color-underline stretched-link">The Best Destinations in Asia for Solo Travel</a></h4>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><a href="#">Mar 11, 2016</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li class="entry col-12">
+                <div class="grid-inner">
+                    <div class="entry-title">
+                        <h4><a href="demo-blog-single.html" class="color-underline stretched-link">We Need a COVID-19 Phase 4 Relief Package. Here’s What Should Be In It.</a></h4>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><a href="#">Mar 11, 2016</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li class="entry col-12">
+                <div class="grid-inner">
+                    <div class="entry-title">
+                        <h4><a href="demo-blog-single.html" class="color-underline stretched-link">UK government weighs Tesla's Model.</a></h4>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><a href="#">Mar 11, 2016</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li class="entry col-12">
+                <div class="grid-inner">
+                    <div class="entry-title">
+                        <h4><a href="demo-blog-single.html" class="color-underline stretched-link">How Colleges Can Get Online Education Right</a></h4>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><a href="#">Mar 11, 2016</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li class="entry col-12">
+                <div class="grid-inner">
+                    <div class="entry-title">
+                        <h4><a href="demo-blog-single.html" class="color-underline stretched-link">From Behind the Scenes to the Forefront: Canada’s Public Health Officers</a></h4>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li><a href="#">Mar 11, 2016</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="line line-sm"></div>
+
+        <h3 class="font-secondary fw-medium">Ad</h3>
+        <div class="fb-post" data-href="https://www.facebook.com/semicolonweb/posts/2855299871172671" data-width="500" data-show-text="false"></div>
+
+    </div>
+</div>

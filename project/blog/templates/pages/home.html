@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<section id="content">
+    <div class="content-wrap pt-5" style="overflow: visible;">
+        <div class="container">
+            <!-- Hero Area
+            ============================================= -->
+            {% comment %} {% include 'includes/hero-section.html' %} {% endcomment %}
+            <!-- Hero Area End -->
+
+            
+
+            
+             <!-- Based On Your Reading History
+            ============================================= -->
+
+            {% include 'includes/history-section.html' %}
+            <!-- Based On Your Reading History End -->
+
+
+            <!-- Subscribe Section
+            ============================================= -->
+            
+             <!-- Subscribe Section End -->
+
+        </div>
+
+        <!-- Dark Section Spotlight
+        ============================================= -->
+        {% comment %} {% include 'includes/dark-section.html' %} {% endcomment %}
+         <!-- Dark Section Spotlight End -->
+
+        {% comment %} <div class="container">
+
+            <!-- Video Section
+            ============================================= -->
+            {% include 'includes/video-section.html' %}
+
+             <!-- Video Section End -->
+        </div> {% endcomment %}
+
+        <!-- Advertisement Section
+        ============================================= -->
+        {% include 'includes/advertisement-section.html' %}
+         <!-- Advertisement Section End -->
+
+        {% comment %} <div class="container">
+            <!-- All Categories
+            ============================================= -->
+            {% include 'includes/categories-section.html' %}
+             <!-- All Categories Section End -->
+
+        </div> {% endcomment %}
+    </div>
+</section><!-- #content end -->
+{% endblock content %}

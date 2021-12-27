@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<!-- Page Title
+		============================================= -->
+		<section id="page-title">
+
+			<div class="container clearfix">
+				<h1>Search Results for {{query}}</h1>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Search</li>
+				</ol>
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+			<div class="content-wrap">
+				<div class="container clearfix">
+
+					<gcse:searchresults-only>
+                        <div class="row col-mb-50">
+                            {% for article in articles %}
+                            
+                            <article class="col-12">
+                              <div class="row">
+                                <div class="col-md-6 mb-0">
+                                  <a href="#" class="entry-image">
+                                    <img src={{article.thumbnail.url}} alt={{article.title}} />
+                                  </a>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="entry-title mt-lg-0 mt-3">
+                                    <div class="entry-categories d-flex">
+                                        {% for category in article.categories.all %}
+                                            <a href={{category.get_absolute_url}} class="mx-2">{{category.name}}</a>
+                                        {% endfor %}
+                                    </div>
+                                    <h3>
+                                      <a
+                                        href={{article.get_absolute_url}}
+                                        class="color-underline stretched-link"
+                                        >{{article.title}}</a
+                                      >
+                                    </h3>
+                                  </div>
+                                  <div class="entry-meta">
+                                    <ul>
+                                      <li><a href="#">{{article.posted_at}}</a></li>
+                                    </ul>
+                                  </div>
+                                  {% comment %} <div class="entry-content">
+                                    <p>
+                                      The technology giants said they would embed a feature in iPhones
+                                      and Android devices to enable users to track infected people
+                                      they’d come close to.
+                                    </p>
+                                  </div> {% endcomment %}
+                                </div>
+                              </div>
+                            </article>
+                            {% endfor %}
+                          </div>
+                    </gcse:searchresults-only>
+
+				</div>
+			</div>
+		</section><!-- #content end -->
+
+{% endblock content %}
