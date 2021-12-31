@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls.base import reverse
+from django.db.models import Count
 
 # Create your views here.
 from django.views.generic import View
@@ -45,9 +46,24 @@ class SingleArticle(View):
 class CategoryArticles(View):
     def get(self, request, slug):
 
+
         category = models.Category.objects.get(slug=slug)
-        articles = category.article.all()
-        print(category, articles)
+
+        articles = category.article.filter()
+        
+
+        if request.GET.get("latest"):
+            articles = articles.order_by('-posted_at')
+
+        elif request.GET.get("most-comments"):
+            articles = articles.annotate(q_count=Count('comments')).order_by('-q_count')
+
+        elif request.GET.get("popular"):
+            articles = articles.order_by('-views')
+
+        else:
+            articles = articles.order_by('-posted_at')
+
 
         context = {
             # 'categories': categories,
@@ -57,12 +73,12 @@ class CategoryArticles(View):
         return render(request, "pages/category_articles.html", context)
 
 
-class AllCategories(View):
-    def get(self, request):
-        context = {
-            "categories": models.Category.objects.all()
-        }
-        return render(request, "pages/allcategories.html", context)
+# class AllCategories(View):
+#     def get(self, request):
+#         context = {
+#             "categories": models.Category.objects.all()
+#         }
+#         return render(request, "pages/allcategories.html", context)
 
 
 class AddComment(View):
@@ -74,9 +90,17 @@ class AddComment(View):
         article = request.POST.get('article')
         article_instance = models.Article.objects.get(id=article)
 
-        comment = models.Comment(name=author, email=email, website=website, text=comment, article=article_instance)
+        comment = models.Comment(
+            name=author, email=email, website=website, text=comment, article=article_instance)
         comment.save()
 
-
-
         return redirect(reverse('article_detail', kwargs={'slug': article_instance.slug}))
+
+class AddNewsLetter(View):
+
+    def get(self, request):
+        return HttpResponse("helo")
+
+    def post(self, request):
+        print("yes posted email")
+        return redirect(request.path)

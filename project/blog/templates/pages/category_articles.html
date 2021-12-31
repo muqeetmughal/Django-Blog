@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load mptt_tags %}
 {% block content %}
    
 		<!-- Page Title
@@ -25,9 +25,13 @@
 					<div class="row gutter-50">
 						<div class="col-lg-3 cat-widgets position-sticky h-100" style="top: 234px;">
 							<div class="widget widget-search">
-								<form class="input-group">
-									<input class="form-control" type="search" placeholder="Search" aria-label="Search">
-									<button class="btn btn-outline-secondary icon-line-search" type="button"></button>
+								<form class="input-group" action={% url 'search' %} method="GET">
+									<input class="form-control" name="q" type="search" value="" placeholder="Search" aria-label="Search" autocomplete="off">
+									<button class="btn btn-outline-secondary icon-line-search" type="submit"></button>
+								</form>
+
+								<form class="top-search-form" action={% url 'search' %} method="GET">
+									<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter.." autocomplete="off">
 								</form>
 							</div>
 
@@ -36,11 +40,17 @@
                                     <li class="nav-item active">
 										<a class="nav-link" href="#">All Categories</a>
 									</li>
-                                    {% for category in categories %}
+
+									{% recursetree categories %}
 									<li class="nav-item">
-										<a class="nav-link" href={{category.get_absolute_url}}>{{category.name}}</a>
+										<a class="nav-link" style="" href={{node.get_absolute_url}}>{{node.name}}</a>
+										{% if not node.is_leaf_node %}
+											<ul class="nav ml-2" style="">
+												{{children}}
+										  	</ul>
+										{% endif %}
 									</li>
-                                    {% endfor %}
+									{% endrecursetree %}
 								</ul>
 							</div>
 						</div>
@@ -52,14 +62,25 @@
 								</div>
 								<div>
 									<!-- Example single danger button -->
-									<div class="btn-group">
-										<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Most Popular</button>
-										<div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Most Popular</a>
-											<a class="dropdown-item" href="#">Latest Posts</a>
-											<a class="dropdown-item" href="#">Most Comments</a>
+
+										<div class="btn-group">
+											<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												{% if "popular" in request.GET %}
+													Most Popular
+												{% elif "most-comments" in request.GET %}
+												Most Comments
+												{% elif "latest" in request.GET %}
+												Latest Posts
+												{% else %}
+												Most Popular
+												{% endif %}
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="{{request.path}}?popular=1">Most Popular</a>
+												<a class="dropdown-item" href="{{request.path}}?latest=1">Latest Posts</a>
+												<a class="dropdown-item" href="{{request.path}}?most-comments=1">Most Comments</a>
+											</div>
 										</div>
-									</div>
 								</div>
 							</div>
 

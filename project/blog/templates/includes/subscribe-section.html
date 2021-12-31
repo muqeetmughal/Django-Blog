@@ -8,8 +8,9 @@
             <div class="widget subscribe-widget" data-loader="button">
 
                 <div class="widget-subscribe-form-result"></div>
-                <form id="widget-subscribe-form" action="include/subscribe.php" method="post" class="mb-0 d-flex">
-                    <input type="email" id="widget-subscribe-form-email" name="widget-subscribe-form-email" class="form-control form-control-lg not-dark required email" placeholder="Your Email Address">
+                <form id="widget-subscribe-form" action={% url 'subscribe' %} method="POST" class="mb-0 d-flex">
+                    {% csrf_token %}
+                    <input type="email" id="widget-subscribe-form-email" name="email" class="form-control form-control-lg not-dark required email" placeholder="Your Email Address">
                     <button class="button button-large button-black button-dark fw-medium ls0 button-rounded m-0 ms-3" type="submit">Subscribe Now</button>
                 </form>
             </div>
